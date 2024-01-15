@@ -21,9 +21,9 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "pages/*": ["pages/*"],
+      "components/*": ["components/*"],
+      "firebaseApp/*": ["firebaseApp/*"],
     },
     "typeRoots": [
       "./node_modules/@types",
