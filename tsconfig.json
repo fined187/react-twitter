@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -18,19 +19,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": "./src",
-    "paths": {
-      "pages/*": ["pages/*"],
-      "components/*": ["components/*"],
-      "firebaseApp/*": ["firebaseApp/*"],
-    },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ]
+    "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "tsconfig.paths.json"
   ]
 }
