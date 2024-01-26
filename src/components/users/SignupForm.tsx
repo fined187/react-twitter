@@ -111,7 +111,7 @@ export default function SignupForm() {
         <button
           type="submit"
           disabled={error.length > 0}
-          className="form__btn-submit"
+          className="form__btn--submit"
         >
           회원가입
         </button>
