@@ -1,5 +1,9 @@
 import PostForm from '@/components/post/PostForm'
 import PostBox from '@/components/post/PostBox'
+import { useContext, useEffect, useState } from 'react'
+import AuthContext from '@/context/AuthContext'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '@/firebaseApp'
 export interface PostProps {
   id: string
   email: string
@@ -12,45 +16,24 @@ export interface PostProps {
   comments?: any
 }
 
-const posts: PostProps[] = [
-  {
-    id: '1',
-    email: 'test@test.com',
-    content: 'Test content',
-    createdAt: '2021-01-01',
-    uid: '1',
-  },
-  {
-    id: '2',
-    email: 'test@test.com',
-    content: 'Test content',
-    createdAt: '2021-01-01',
-    uid: '1',
-  },
-  {
-    id: '3',
-    email: 'test@test.com',
-    content: 'Test content',
-    createdAt: '2021-01-01',
-    uid: '1',
-  },
-  {
-    id: '4',
-    email: 'test@test.com',
-    content: 'Test content',
-    createdAt: '2021-01-01',
-    uid: '1',
-  },
-  {
-    id: '5',
-    email: 'test@test.com',
-    content: 'Test content',
-    createdAt: '2021-01-01',
-    uid: '1',
-  },
-]
-
 export default function HomePage() {
+  const [posts, setPosts] = useState<PostProps[]>([])
+  const { user } = useContext(AuthContext)
+  useEffect(() => {
+    if (user) {
+      let postsRef = collection(db, 'posts')
+      let postsQuery = query(postsRef, orderBy('createdAt', 'desc'))
+
+      onSnapshot(postsQuery, (snapshot) => {
+        let dataObj = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc?.id,
+        }))
+        setPosts(dataObj as PostProps[])
+      })
+    }
+  }, [])
+
   return (
     <div className="home">
       <div className="home__top">
@@ -63,9 +46,15 @@ export default function HomePage() {
       <PostForm />
       {/* Tweet Posts */}
       <div className="post">
-        {posts?.map((post: any, idx: number) => (
-          <PostBox post={post} key={idx} />
-        ))}
+        {posts.length > 0 ? (
+          posts?.map((post: any, idx: number) => (
+            <PostBox post={post} key={idx} />
+          ))
+        ) : (
+          <div className="post__no-posts">
+            <div className="post__text">게시글이 없습니다.</div>
+          </div>
+        )}
       </div>
     </div>
   )

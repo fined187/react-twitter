@@ -1,6 +1,11 @@
+import AuthContext from '@/context/AuthContext'
+import { db } from '@/firebaseApp'
+import { deleteDoc, doc } from 'firebase/firestore'
+import { useContext } from 'react'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaRegComment, FaUserCircle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export interface PostProps {
   id: string
@@ -15,7 +20,20 @@ export interface PostProps {
 }
 
 export default function PostBox({ post }: any) {
-  const handleDelete = () => {}
+  const { user } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const handleDelete = async () => {
+    const confirm = window.confirm('해당 트윗을 삭제하시겠습니까?')
+    if (!confirm) return
+    try {
+      await deleteDoc(doc(db, 'posts', post?.id))
+      toast.success('트윗이 삭제되었습니다.')
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="post__box" key={post?.id}>
       <Link to={`/posts/${post?.id}`} className="post__link">
@@ -37,11 +55,12 @@ export default function PostBox({ post }: any) {
         </div>
       </Link>
       <div className="post__box-footer">
-        {/* post.uid === user.uid 일 때 */}
-        <>
+        {user?.uid === post?.uid && (
           <button type="button" className="post__delete" onClick={handleDelete}>
             Delete
           </button>
+        )}
+        <>
           <button type="button" className="post__edit" onClick={handleDelete}>
             <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
           </button>

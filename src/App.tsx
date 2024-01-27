@@ -31,6 +31,8 @@ function App() {
         autoClose={1000}
         hideProgressBar
         newestOnTop
+        position="top-right"
+        closeOnClick
       />
       {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
     </Layout>
