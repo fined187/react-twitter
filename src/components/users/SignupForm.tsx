@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from 'firebase/auth'
 import { app } from '@/firebaseApp'
 import { toast } from 'react-toastify'
 
@@ -22,6 +28,31 @@ export default function SignupForm() {
       console.log(error)
       toast.error(error?.code)
     }
+  }
+
+  const onClickSocialLogin = async (e: any) => {
+    const {
+      target: { name },
+    } = e
+    let provider
+    const auth = getAuth(app)
+    if (name === 'google') {
+      provider = new GoogleAuthProvider()
+    }
+    if (name === 'github') {
+      provider = new GithubAuthProvider()
+    }
+    await signInWithPopup(
+      auth,
+      provider as GithubAuthProvider | GoogleAuthProvider,
+    )
+      .then((result) => {
+        console.log(result)
+        toast.success('로그인이 완료되었습니다.')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,20 +131,46 @@ export default function SignupForm() {
       {/* error? */}
       {error && error?.length > 0 && (
         <div className="form__block">
-          <div className="form__error">contents</div>
+          <div className="form__error">{error}</div>
         </div>
       )}
       <div className="form__block">
         계정이 있으신가요?
         <Link to="/users/login">로그인하기</Link>
       </div>
-      <div className="form__block">
+      <div className="form__block--lg">
         <button
           type="submit"
           disabled={error.length > 0}
           className="form__btn--submit"
         >
           회원가입
+        </button>
+      </div>
+      <div className="form__block">
+        <button
+          type="button"
+          name="google"
+          disabled={error.length > 0}
+          className="form__btn--google"
+          onClick={async (e) => {
+            await onClickSocialLogin(e)
+          }}
+        >
+          Google로 회원가입
+        </button>
+      </div>
+      <div className="form__block">
+        <button
+          type="button"
+          name="github"
+          disabled={error.length > 0}
+          className="form__btn--github"
+          onClick={async (e) => {
+            await onClickSocialLogin(e)
+          }}
+        >
+          Github으로 회원가입
         </button>
       </div>
     </form>
