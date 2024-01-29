@@ -19,6 +19,7 @@ export interface PostProps {
 export default function HomePage() {
   const [posts, setPosts] = useState<PostProps[]>([])
   const { user } = useContext(AuthContext)
+
   useEffect(() => {
     if (user) {
       let postsRef = collection(db, 'posts')

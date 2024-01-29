@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import AuthContext from '@/context/AuthContext'
 import { getAuth, signOut } from 'firebase/auth'
 import { toast } from 'react-toastify'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 export default function MenuList() {
   const { user } = useContext(AuthContext)
@@ -20,6 +21,10 @@ export default function MenuList() {
         <button type="button" onClick={() => navigate('/Profile')}>
           <BiUserCircle />
           Profile
+        </button>
+        <button type="button" onClick={() => navigate('/search')}>
+          <AiOutlineSearch />
+          Search
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate('/users/login')}>

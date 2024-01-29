@@ -34,6 +34,17 @@ export default function PostBox({ post }: any) {
     }
   }
 
+  const handleEdit = () => {
+    const confirm = window.confirm('해당 트윗을 수정하시겠습니까?')
+    if (confirm) {
+      try {
+        navigate(`/posts/edit/${post?.id}`)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
   return (
     <div className="post__box" key={post?.id}>
       <Link to={`/posts/${post?.id}`} className="post__link">
@@ -52,6 +63,13 @@ export default function PostBox({ post }: any) {
             <div className="post__createdAt">{post?.createdAt}</div>
           </div>
           <div className="post__box-content">{post?.content}</div>
+          <div className="post-form__hashtags-outputs">
+            {post?.hashTags?.map((tag: string, index: number) => (
+              <span className="post-form__hashtags-tag" key={index}>
+                #{tag}
+              </span>
+            ))}
+          </div>
         </div>
       </Link>
       <div className="post__box-footer">
@@ -61,7 +79,7 @@ export default function PostBox({ post }: any) {
           </button>
         )}
         <>
-          <button type="button" className="post__edit" onClick={handleDelete}>
+          <button type="button" className="post__edit" onClick={handleEdit}>
             <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
           </button>
           <button type="button" className="post__likes" onClick={handleDelete}>
