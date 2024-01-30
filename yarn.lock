@@ -3863,6 +3863,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^9.0.8":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: b411b93054cb1d4361919579ef3508a1f12bf15b5fdd97337d3d351bece6c921b52b6daeef89b62340fd73fd60da407878432a1af777f40648cbe53a01723489
+  languageName: node
+  linkType: hard
+
 "@types/ws@npm:^8.5.5":
   version: 8.5.10
   resolution: "@types/ws@npm:8.5.10"
@@ -14487,6 +14494,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "uuid@npm:9.0.1"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 1607dd32ac7fc22f2d8f77051e6a64845c9bce5cd3dd8aa0070c074ec73e666a1f63c7b4e0f4bf2bc8b9d59dc85a15e17807446d9d2b17c8485fbc2147b27f9b
+  languageName: node
+  linkType: hard
+
 "v8-compile-cache-lib@npm:^3.0.1":
   version: 3.0.1
   resolution: "v8-compile-cache-lib@npm:3.0.1"
@@ -14769,6 +14785,7 @@ __metadata:
     "@types/react-copy-to-clipboard": "npm:^5"
     "@types/react-dom": "npm:^18.2.17"
     "@types/testing-library__jest-dom": "npm:^5.14.9"
+    "@types/uuid": "npm:^9.0.8"
     classnames: "npm:^2.3.2"
     craco-alias: "npm:^3.0.1"
     date-fns: "npm:^2.30.0"
@@ -14793,6 +14810,7 @@ __metadata:
     scss: "npm:^0.2.4"
     swiper: "npm:^9"
     typescript: "npm:^4.9.5"
+    uuid: "npm:^9.0.1"
     web-vitals: "npm:^2.1.4"
   languageName: unknown
   linkType: soft

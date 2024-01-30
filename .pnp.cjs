@@ -38,6 +38,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-copy-to-clipboard", "npm:5.0.7"],\
           ["@types/react-dom", "npm:18.2.18"],\
           ["@types/testing-library__jest-dom", "npm:5.14.9"],\
+          ["@types/uuid", "npm:9.0.8"],\
           ["classnames", "npm:2.5.1"],\
           ["craco-alias", "npm:3.0.1"],\
           ["date-fns", "npm:2.30.0"],\
@@ -62,6 +63,7 @@ const RAW_RUNTIME_STATE =
           ["scss", "npm:0.2.4"],\
           ["swiper", "npm:9.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+          ["uuid", "npm:9.0.1"],\
           ["web-vitals", "npm:2.1.4"]\
         ],\
         "linkType": "SOFT"\
@@ -6395,6 +6397,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/@types-trusted-types-npm-2.0.7-a07fc44f59-10c0.zip/node_modules/@types/trusted-types/",\
         "packageDependencies": [\
           ["@types/trusted-types", "npm:2.0.7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/uuid", [\
+      ["npm:9.0.8", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-uuid-npm-9.0.8-3eeeaa5abb-10c0.zip/node_modules/@types/uuid/",\
+        "packageDependencies": [\
+          ["@types/uuid", "npm:9.0.8"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -19794,6 +19805,13 @@ const RAW_RUNTIME_STATE =
           ["uuid", "npm:8.3.2"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:9.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/uuid-npm-9.0.1-39a8442bc6-10c0.zip/node_modules/uuid/",\
+        "packageDependencies": [\
+          ["uuid", "npm:9.0.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["v8-compile-cache-lib", [\
@@ -20139,6 +20157,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-copy-to-clipboard", "npm:5.0.7"],\
           ["@types/react-dom", "npm:18.2.18"],\
           ["@types/testing-library__jest-dom", "npm:5.14.9"],\
+          ["@types/uuid", "npm:9.0.8"],\
           ["classnames", "npm:2.5.1"],\
           ["craco-alias", "npm:3.0.1"],\
           ["date-fns", "npm:2.30.0"],\
@@ -20163,6 +20182,7 @@ const RAW_RUNTIME_STATE =
           ["scss", "npm:0.2.4"],\
           ["swiper", "npm:9.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+          ["uuid", "npm:9.0.1"],\
           ["web-vitals", "npm:2.1.4"]\
         ],\
         "linkType": "SOFT"\

@@ -17,6 +17,7 @@ export interface PostProps {
   likes?: string[]
   likeCount?: number
   comments?: any
+  imageUrl?: string
 }
 
 export default function PostBox({ post }: any) {
@@ -63,6 +64,17 @@ export default function PostBox({ post }: any) {
             <div className="post__createdAt">{post?.createdAt}</div>
           </div>
           <div className="post__box-content">{post?.content}</div>
+          {post?.imageUrl && (
+            <div className="post__image-div">
+              <img
+                src={post?.imageUrl}
+                alt="post img"
+                className="post__image"
+                width={100}
+                height={100}
+              />
+            </div>
+          )}
           <div className="post-form__hashtags-outputs">
             {post?.hashTags?.map((tag: string, index: number) => (
               <span className="post-form__hashtags-tag" key={index}>
