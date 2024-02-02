@@ -33,7 +33,7 @@ export default function HomePage() {
         setPosts(dataObj as PostProps[])
       })
     }
-  }, [])
+  }, [user])
 
   return (
     <div className="home">

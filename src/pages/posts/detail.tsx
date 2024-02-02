@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PostProps } from '../home'
 import { IoIosArrowBack } from 'react-icons/io'
+import PostHeader from '@/components/post/Header'
 
 export default function PostDetail() {
   const params = useParams<{ id: string }>()
@@ -27,11 +28,7 @@ export default function PostDetail() {
   }, [getPost])
   return (
     <div className="post">
-      <div className="post__header">
-        <button type="button" onClick={() => navigate(-1)}>
-          <IoIosArrowBack className="post__header-btn" />
-        </button>
-      </div>
+      <PostHeader />
       {post ? <PostBox post={post} /> : <Loader />}
     </div>
   )
