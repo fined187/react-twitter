@@ -47,6 +47,10 @@ body {
   border: none;
   cursor: pointer;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .transparent {
@@ -156,6 +160,22 @@ body {
 }
 
 .post-form {
+  &__profile {
+    padding: 16px;
+
+    .post-form__input {
+      border-bottom: 1px solid $gray;
+      padding: 8px 2px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+
+      &:active, &:focus {
+        border-bottom: 1px solid $primaryColor;
+      }
+    }
+  }
+
   &__image-area {
     display: flex;
     align-items: center;
@@ -301,6 +321,34 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
+    
+    &--between {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__following-btn {
+    @extend .button;
+    background-color: $activeBackground;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: white;
+      color: $grayText;
+    }
+  }
+
+  &__follow-btn {
+    @extend .button;
+    background-color: white;
+    color: $activeBackground;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBackground;
+    }
   }
 
   &__email, 
@@ -468,5 +516,54 @@ body {
       background-color: $activeBackground;
       color: white;
     }
+  }
+}
+
+// profile layout
+.profile {
+  display: flex;
+  padding: 0 1rem;
+  margin-top: 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+
+  &__image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  &__btn {
+    @extend .button;
+    padding: 0.5rem 1rem;
+    background-color: $primaryColor;
+    font-size: 14px;
+    font-weight: 600;
+    color: $white;
+    border-radius: 999px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBackground;
+    }
+  }
+
+  &__text {
+    padding: 0 1rem;
+    margin-top: 20px;
+  }
+
+  &__name {
+    font-size: 16px;
+    columns: $white;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &__email {
+    font-size: 16px;
+    color: $grayText;
+    margin-bottom: 4px;
   }
 }

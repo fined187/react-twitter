@@ -14,6 +14,8 @@ import { updateProfile } from 'firebase/auth'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
+const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com'
+
 export default function ProfileEdit() {
   const [displayName, setDisplayName] = useState<string | null>('')
   const [imageUrl, setImageUrl] = useState<string | null>('')
@@ -55,7 +57,7 @@ export default function ProfileEdit() {
 
     try {
       //  기존 이미지 항상 삭제
-      if (user?.photoURL) {
+      if (user?.photoURL && user?.photoURL.includes(STORAGE_DOWNLOAD_URL_STR)) {
         const imageRef = ref(storage, user?.photoURL)
         if (imageRef) {
           await deleteObject(imageRef).catch((error) => console.error(error))

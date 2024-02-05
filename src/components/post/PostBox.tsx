@@ -1,12 +1,19 @@
 import AuthContext from '@/context/AuthContext'
 import { db, storage } from '@/firebaseApp'
-import { deleteDoc, doc } from 'firebase/firestore'
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from 'firebase/firestore'
 import { useContext } from 'react'
-import { AiFillHeart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { FaRegComment, FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { ref, deleteObject } from 'firebase/storage'
+import FollowingBox from '../following/FollowingBox'
 
 export interface PostProps {
   id: string
@@ -57,23 +64,50 @@ export default function PostBox({ post }: any) {
     }
   }
 
+  const toggleLike = async () => {
+    const postRef = doc(db, 'posts', post?.id)
+
+    //  사용자가 좋아요를 미리 한 경우 -> 좋아요 취소
+    if (user?.uid && post?.likes?.includes(user?.uid)) {
+      try {
+        await updateDoc(postRef, {
+          likes: arrayRemove(user?.uid),
+          likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      //  사용자가 좋아요를 미리 하지 않은 경우 -> 좋아요 추가
+      await updateDoc(postRef, {
+        likes: arrayUnion(user?.uid),
+        likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
+      })
+    }
+  }
+
   return (
     <div className="post__box" key={post?.id}>
-      <Link to={`/posts/${post?.id}`} className="post__link">
-        <div className="post__box-profile">
-          <div className="post__flex">
-            {post?.profileUrl ? (
-              <img
-                src={post?.profileUrl}
-                alt="profile"
-                className="post__box-profile-img"
-              />
-            ) : (
-              <FaUserCircle className="post__box-profile-icon" />
-            )}
-            <div className="post__email">{post?.email}</div>
-            <div className="post__createdAt">{post?.createdAt}</div>
+      <div className="post__box-profile">
+        <div className="post__flex">
+          {post?.profileUrl ? (
+            <img
+              src={post?.profileUrl}
+              alt="profile"
+              className="post__box-profile-img"
+            />
+          ) : (
+            <FaUserCircle className="post__box-profile-icon" />
+          )}
+          <div className="post__flex--between">
+            <div className="post__flex">
+              <div className="post__email">{post?.email}</div>
+              <div className="post__createdAt">{post?.createdAt}</div>
+            </div>
+            <FollowingBox post={post} />
           </div>
+        </div>
+        <Link to={`/posts/${post?.id}`} className="post__link">
           <div className="post__box-content">{post?.content}</div>
           {post?.imageUrl && (
             <div className="post__image-div">
@@ -93,8 +127,8 @@ export default function PostBox({ post }: any) {
               </span>
             ))}
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="post__box-footer">
         {user?.uid === post?.uid && (
           <button type="button" className="post__delete" onClick={handleDelete}>
@@ -105,11 +139,13 @@ export default function PostBox({ post }: any) {
           <button type="button" className="post__edit" onClick={handleEdit}>
             <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
           </button>
-          <button type="button" className="post__likes" onClick={handleDelete}>
-            <Link to={`/posts/edit/${post?.id}`}>
+          <button type="button" className="post__likes" onClick={toggleLike}>
+            {user && post?.likes?.includes(user?.uid) ? (
               <AiFillHeart className="post__likes-icon" />
-              {post?.likeCount || 0}
-            </Link>
+            ) : (
+              <AiOutlineHeart className="post__likes-icon" />
+            )}
+            {post?.likeCount || 0}
           </button>
           <button
             type="button"
