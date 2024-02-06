@@ -2,8 +2,10 @@ import AuthContext from '@/context/AuthContext'
 import { db } from '@/firebaseApp'
 import { PostProps } from '@/pages/home'
 import {
+  addDoc,
   arrayRemove,
   arrayUnion,
+  collection,
   doc,
   onSnapshot,
   setDoc,
@@ -45,6 +47,19 @@ export default function FollowingBox({ post }: FollowingBoxProps) {
           { merge: true },
         )
       }
+      //  팔로우 알림
+      await addDoc(collection(db, 'notifications'), {
+        createdAt: new Date()?.toLocaleDateString('ko', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
+        content: `${user?.email || user?.displayName}님이 팔로우를 시작했습니다.`,
+        uid: post?.uid,
+        isRead: false,
+        url: '#',
+      })
+
       window.alert('팔로우를 완료했습니다.')
     } catch (error) {
       console.log(error)
@@ -100,7 +115,7 @@ export default function FollowingBox({ post }: FollowingBoxProps) {
           </button>
         ) : (
           <button className="post__follow-btn" onClick={onClickFollow}>
-            Follower
+            Follow
           </button>
         ))}
     </>

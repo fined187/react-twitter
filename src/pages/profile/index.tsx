@@ -1,4 +1,3 @@
-import Loader from '@/components/loader/Loader'
 import PostBox from '@/components/post/PostBox'
 import AuthContext from '@/context/AuthContext'
 import { db } from '@/firebaseApp'

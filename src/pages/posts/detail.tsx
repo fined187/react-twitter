@@ -27,7 +27,7 @@ export default function PostDetail() {
     if (params.id) {
       getPost()
     }
-  }, [getPost])
+  }, [getPost, params.id])
   return (
     <div className="post">
       <PostHeader />
